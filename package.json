@@ -1,0 +1,27 @@
+{
+  "name": "webpack-react-element",
+  "version": "1.0.0",
+  "description": "React with element ui for pc site.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afeiship/webpack-react-element.git"
+  },
+  "keywords": [
+    "webpack",
+    "react",
+    "element-ui",
+    "pc",
+    "site",
+    "website"
+  ],
+  "author": "afei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afeiship/webpack-react-element/issues"
+  },
+  "homepage": "https://github.com/afeiship/webpack-react-element#readme"
+}
