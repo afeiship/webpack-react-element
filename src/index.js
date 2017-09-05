@@ -1,4 +1,4 @@
-import App from "./components/app";
+import App from "./app";
 
 ReactDOM.render(
   <App />,

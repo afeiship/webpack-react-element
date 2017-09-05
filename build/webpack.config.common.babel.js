@@ -1,12 +1,13 @@
 // shared config (dev and prod)
-
+import webpack from 'webpack';
 import {resolve, join} from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
+
 export default {
   resolve: {
-    extensions: ['.js', '.json', '.scss'],
+    extensions: ['.js', '.json', '.scss', '.css'],
   },
   context: resolve(__dirname, '../src'),
   module: {
@@ -18,11 +19,10 @@ export default {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader?modules',
-          'postcss-loader'
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader']
+        })
       },
       {
         test: /\.scss$/,
@@ -33,41 +33,68 @@ export default {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            {
-              loader: "css-loader" // translates CSS into CommonJS
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  autoprefixer({
-                    browsers: [
-                      'last 2 version',
-                      'Explorer >= 10',
-                      'Android >= 4'
-                    ]
-                  })
-                ]
-              }
-            },
-            {
-              loader: "sass-loader" // compiles Sass to CSS
-            }
-          ]
+          use: ['css-loader', 'postcss-loader', 'sass-loader']
         })
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false',
-        ],
+        loader: 'url-loader',
+        options: {
+          name: 'images/[name]-[hash:4].[ext]',
+          limit: 8192
+        }
       },
+      {
+        test: /\.(woff|eot|ttf)\??.*$/,
+        loader: 'url-loader',
+        options: {
+          name: 'fonts/[name]-[hash:4].[ext]',
+          limit: 8192
+        }
+      }
     ],
   },
   plugins: [
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: {
+          plugins: [
+            autoprefixer({
+              browsers: [
+                'last 2 version',
+                'Explorer >= 10',
+                'Android >= 4'
+              ]
+            })
+          ]
+        },
+        img: {
+          gifsicle: {
+            interlaced: false
+          },
+          mozjpeg: {
+            progressive: true,
+            arithmetic: false
+          },
+          optipng: false, // disabled
+          pngquant: {
+            floyd: 0.5,
+            speed: 2
+          },
+          svgo: {
+            plugins: [
+              {
+                removeTitle: true
+              },
+              {
+                convertPathData: false
+              }
+            ]
+          }
+        }
+      }
+    }),
   ],
   externals: {
     'react': 'React',

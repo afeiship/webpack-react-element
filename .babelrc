@@ -18,7 +18,7 @@
         ],
         "alias": {
           "node_modules": "./node_modules",
-          "images": "./src/images",
+          "images": "./src/assets/images",
           "styles": "./src/components/styles",
           "services": "./src/components/services",
           "scripts": "./src/components/scripts",

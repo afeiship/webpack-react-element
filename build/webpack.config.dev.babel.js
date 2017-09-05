@@ -1,11 +1,9 @@
 // development config
-import path from 'path';
+import {resove, join} from 'path';
 import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import merge from 'webpack-merge';
 import {resolve} from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import commonConfig from './webpack.config.common.babel';
 
 
@@ -13,7 +11,7 @@ export default merge(commonConfig, {
   entry: './index.js',
   output: {
     filename: '[name]-[chunkhash:6].bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    path: resolve(__dirname, '../dist')
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -23,10 +21,10 @@ export default merge(commonConfig, {
       mixin: 'mixin-decorator',
     }),
     new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, '../dist/vendors/manifest.json')
+      manifest: resolve(__dirname, '../dist/vendors/manifest.json')
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: resolve(__dirname, '../public/index.html'),
       title: 'Hot Module Replacement'
     }),
     // build optimization plugins
@@ -39,7 +37,7 @@ export default merge(commonConfig, {
   //devtools:
   devtool: 'source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, '../dist'),
+    contentBase: resolve(__dirname, '../dist'),
     hot: true,
     stats: 'errors-only',
     compress: true,
