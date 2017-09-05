@@ -1,19 +1,14 @@
 // shared config (dev and prod)
-const webpack = require('webpack');
-const {resolve}       = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
-module.exports = {
+import {resolve, join} from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import autoprefixer from 'autoprefixer';
+
+export default {
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.scss'],
-    alias: {
-      images: resolve(__dirname, './src/images'),
-      styles: resolve(__dirname, './src/components/styles'),
-      services: resolve(__dirname, './src/components/services'),
-    }
+    extensions: ['.js', '.json', '.scss'],
   },
-  context: resolve(__dirname, 'src'),
+  context: resolve(__dirname, '../src'),
   module: {
     rules: [
       {
@@ -71,7 +66,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [],
+  plugins: [
+    new ExtractTextPlugin('style.css'),
+  ],
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
