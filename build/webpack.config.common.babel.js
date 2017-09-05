@@ -3,9 +3,14 @@ import webpack from 'webpack';
 import {resolve, join} from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
-
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
+  entry: './index.js',
+  output: {
+    filename: '[name]-[chunkhash:6].bundle.js',
+    path: resolve(__dirname, '../dist')
+  },
   resolve: {
     extensions: ['.js', '.json', '.scss', '.css'],
   },
@@ -56,6 +61,23 @@ export default {
   },
   plugins: [
     new ExtractTextPlugin('[name]-[hash].css'),
+    new webpack.ProvidePlugin({
+      nx: 'next-js-core2',
+      autobind: 'autobind-decorator',
+      mixin: 'mixin-decorator',
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: resolve(__dirname, '../dist/vendors/manifest.json')
+    }),
+    new HtmlWebpackPlugin({
+      template: resolve(__dirname, '../public/index.html'),
+      title: 'Hot Module Replacement'
+    }),
+    // build optimization plugins
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor-[hash:6].min.js',
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: {
