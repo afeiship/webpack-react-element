@@ -1,7 +1,8 @@
 // development config
-const merge     = require('webpack-merge');
-const webpack   = require('webpack');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
 const {resolve} = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common');
 
@@ -24,6 +25,7 @@ module.exports = merge(commonConfig, {
   },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
+    new ExtractTextPlugin('style.css'),
     new webpack.HotModuleReplacementPlugin(), // enable HMR globally
     new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
   ],

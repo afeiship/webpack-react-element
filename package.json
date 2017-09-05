@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --env=prod",
-    "start": "npm run start-dev",
-    "start-dev": "webpack-dev-server --config=webpack.config.dev.js",
+    "dev": "webpack-dev-server --config=webpack.config.dev.js",
     "start-prod": "npm run build && node express.js"
   },
   "repository": {

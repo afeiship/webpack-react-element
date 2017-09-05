@@ -6,7 +6,12 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.js', '.jsx'],
+    extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.scss'],
+    alias: {
+      images: resolve(__dirname, './src/images'),
+      styles: resolve(__dirname, './src/components/styles'),
+      services: resolve(__dirname, './src/components/services'),
+    }
   },
   context: resolve(__dirname, 'src'),
   module: {
@@ -18,7 +23,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader?modules', 'postcss-loader',],
+        use: [
+          'style-loader',
+          'css-loader?modules',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.scss$/,
