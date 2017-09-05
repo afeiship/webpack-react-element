@@ -1,5 +1,8 @@
 import webpack from 'webpack';
-import path from 'path';
+import {resolve} from 'path';
 import merge from 'webpack-merge';
 
-export default merge({})
+export default merge({
+  entry: './src/app/index.js',
+  plugins: []
+})
