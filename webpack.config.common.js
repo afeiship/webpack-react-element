@@ -1,19 +1,16 @@
 // shared config (dev and prod)
-import webpack from 'webpack';
-import {resolve} from 'path';
+const webpack = require('webpack');
+const {resolve}       = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
-export default {
+module.exports = {
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss'],
+    extensions: ['.webpack.js', '.web.js', '.js', '.jsx'],
   },
   context: resolve(__dirname, 'src'),
   module: {
     rules: [
-      {
-        test: /\.scss$/,
-        loader: 'import-glob-loader',
-        enforce: "pre"
-      },
       {
         test: /\.(js|jsx)$/,
         use: ['babel-loader'],
@@ -41,7 +38,11 @@ export default {
               options: {
                 plugins: [
                   autoprefixer({
-                    browsers: ['last 2 version', 'Explorer >= 10', 'Android >= 4']
+                    browsers: [
+                      'last 2 version',
+                      'Explorer >= 10',
+                      'Android >= 4'
+                    ]
                   })
                 ]
               }
