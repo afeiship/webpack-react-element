@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "es2017",
+    "react"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "."
+        ],
+        "alias": {
+          "~": "./node_modules/",
+          "images": "./src/assets/images"
+        },
+        "cwd": "babelrc"
+      }
+    ]
+  ]
+}

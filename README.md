@@ -4,4 +4,8 @@
 ## feature:
 + [x] spa 
 + [x] webpack 3.x
-+ [x] element-ui
++ [x] element-react
+
+
+## resource:
++ https://github.com/vikpe/react-webpack-babel-starter
